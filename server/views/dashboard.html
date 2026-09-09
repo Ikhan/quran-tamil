@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Tamil</title>
+    <link rel="stylesheet" href="/static/styles.css?v=1">
+    <link rel="stylesheet" href="/static/tamil.css?v=16">
+    <script src="/static/prefs.js?v=1"></script>
+</head>
+<body>
+    <header class="topbar">
+        <h1>🔊 Quran Tamil</h1>
+        <div class="topbar-actions">
+            <span id="coverage" class="coverage"></span>
+            <div class="prefs">
+                <button type="button" id="fontDown" class="icon-btn" title="Smaller text" aria-label="Decrease text size">A−</button>
+                <button type="button" id="fontUp" class="icon-btn" title="Larger text" aria-label="Increase text size">A+</button>
+                <button type="button" id="themeToggle" class="icon-btn" title="Switch to dark" aria-label="Switch to dark theme">☾</button>
+            </div>
+            <button id="logout" class="btn btn-ghost">Log out</button>
+        </div>
+    </header>
+
+    <nav class="viewnav">
+        <button type="button" class="viewtab is-active" data-view="single">One reel</button>
+        <button type="button" class="viewtab" data-view="batch">A reel per verse</button>
+    </nav>
+
+    <main class="wrap" id="viewSingle">
+        <section class="card">
+            <label for="paste"><strong>Paste the Arabic</strong>, or a reference like <code>112</code>, <code>2:255</code>, <code>55:13-18</code></label>
+            <textarea id="paste" rows="4" dir="auto" placeholder="قُلْ هُوَ ٱللَّهُ أَحَدٌ"></textarea>
+            <div class="row">
+                <button id="resolve" class="btn btn-primary">Find verse</button>
+                <span id="status" class="status"></span>
+            </div>
+        </section>
+
+        <section id="result" class="card" style="display:none;">
+            <div class="result-head">
+                <h2 id="ref"></h2>
+                <span id="matched" class="badge"></span>
+                <span id="runtime" class="runtime"></span>
+            </div>
+            <div id="verses"></div>
+            <div class="row">
+                <button id="build" class="btn btn-primary">Get Tamil audio</button>
+                <span id="buildStatus" class="status"></span>
+            </div>
+            <div id="player" style="display:none;">
+                <audio id="audio" controls preload="none"></audio>
+                <a id="download" class="btn btn-ghost" download>Download mp3</a>
+                <button id="deleteClip" type="button" class="btn btn-ghost danger">Delete</button>
+                <span id="deleteStatus" class="status"></span>
+            </div>
+        </section>
+
+        <section class="card">
+            <strong>The recitation</strong>
+            <p class="hint">Tamil alone, or the Arabic recited first and its Tamil translation after it — verse by verse.</p>
+            <div class="modes">
+                <label class="mode"><input type="radio" name="mode" value="tamil" checked> Tamil only</label>
+                <label class="mode"><input type="radio" name="mode" value="arabic"> Arabic → Tamil</label>
+            </div>
+            <div id="reciters" class="reciter-list" hidden></div>
+        </section>
+
+        <section id="coverCard" class="card" style="display:none;">
+            <strong>Cover image</strong>
+            <p class="hint">The still that fronts the reel in the grid. Surah, name and verse all come from what you found above — edit the Tamil name if you want it set differently and the change is remembered.</p>
+            <div class="cover-fields">
+                <label class="field">
+                    <span>Surah (English)</span>
+                    <input id="coverEnglish" type="text" readonly>
+                </label>
+                <label class="field">
+                    <span>Surah (Tamil)</span>
+                    <input id="coverTamil" type="text" dir="auto" placeholder="ஸூரத்துல் பகரா">
+                </label>
+                <label class="field field-narrow">
+                    <span>From verse</span>
+                    <input id="coverFrom" type="number" min="1">
+                </label>
+                <label class="field field-narrow">
+                    <span>To verse</span>
+                    <input id="coverTo" type="number" min="1">
+                </label>
+            </div>
+            <div class="row">
+                <input id="coverImage" type="file" accept="image/png,image/jpeg,image/webp">
+            </div>
+            <div class="row">
+                <button id="makeCover" class="btn btn-primary">Make cover</button>
+                <span id="coverStatus" class="status"></span>
+            </div>
+            <div id="coverResult" style="display:none;">
+                <img id="coverPreview" alt="Cover preview">
+                <a id="coverDownload" class="btn btn-ghost" download>Download png</a>
+            </div>
+        </section>
+
+        <section id="reelCard" class="card" style="display:none;">
+            <strong>The reel</strong>
+            <p class="hint">The verse card itself, rendered from the range found above with the reciter chosen. It takes a few minutes and only one runs at a time — leaving or refreshing this page rejoins the same render.</p>
+            <div class="reel-row">
+                <button id="makeReel" class="btn btn-primary">Make a reel</button>
+                <label class="mode"><input type="checkbox" id="darkReel"> Dark</label>
+                <label class="mode"><input type="checkbox" id="reelCover" checked> Cover too</label>
+                <span id="reelStatus" class="status"></span>
+            </div>
+            <div id="reelPlayer" style="display:none;">
+                <video id="reelVideo" controls preload="metadata" playsinline></video>
+                <a id="reelDownload" class="btn btn-ghost" download>Download mp4</a>
+            </div>
+        </section>
+
+        <section id="captionCard" class="card" style="display:none;">
+            <strong>Instagram caption</strong>
+            <p class="hint">The passage and its attribution, filled in from what was found above — each Arabic line with its Tamil under it, then the sura, the range, the reciter and the tags. Edit it here if you want a line of your own on top; the box is yours until you resolve something else.</p>
+            <textarea id="captionText" rows="18" dir="auto" spellcheck="false"></textarea>
+            <div class="row">
+                <button id="copyCaption" class="btn btn-primary">Copy caption</button>
+                <button id="rebuildCaption" class="btn btn-ghost">Rebuild</button>
+                <span id="captionStatus" class="status"></span>
+            </div>
+        </section>
+
+    </main>
+
+    <main class="wrap" id="viewBatch" hidden>
+        <section class="card">
+            <strong>A reel per verse</strong>
+            <p class="hint">One reel for every verse in the range, rendered in order — for scheduling a week of posts. Check the range first: it shows how each verse will come out.</p>
+            <div class="row">
+                <input id="batchRange" class="rangebox" type="text" placeholder="3:180-185" autocomplete="off">
+                <button id="batchCheck" class="btn btn-ghost">Check</button>
+                <span id="batchStatus" class="status"></span>
+            </div>
+        </section>
+
+        <section id="batchPlanCard" class="card" style="display:none;">
+            <div class="result-head">
+                <h2 id="batchRef"></h2>
+                <span id="batchSummary" class="runtime"></span>
+            </div>
+            <div id="batchPlan"></div>
+
+            <div class="batch-options">
+                <label class="opt"><input type="checkbox" id="batchCover" checked> Make a cover for each</label>
+                <label class="opt"><input type="checkbox" id="batchCaption" checked> Write a caption for each</label>
+                <label class="opt"><input type="checkbox" id="batchDark"> Dark</label>
+            </div>
+
+            <div id="batchImages" class="batch-images">
+                <label class="filepick">
+                    <input type="file" id="batchPhotos" accept="image/png,image/jpeg,image/webp" multiple hidden>
+                    <span class="btn btn-ghost">Choose photographs…</span>
+                </label>
+                <span id="batchPhotoCount" class="hint"></span>
+            </div>
+
+            <div class="row">
+                <button id="batchStart" class="btn btn-primary">Render them</button>
+                <span id="batchRunStatus" class="status"></span>
+            </div>
+            <div id="batchProgress" class="batch-progress" hidden></div>
+        </section>
+
+        <section id="batchCaptionsCard" class="card" style="display:none;">
+            <strong>Captions</strong>
+            <p class="hint">One click each, then paste into the Description box. Faster than opening the files.</p>
+            <div id="batchCaptions" class="caplist"></div>
+        </section>
+    </main>
+
+    <script src="/static/caption.js?v=4"></script>
+    <script src="/static/tamil.js?v=21"></script>
+    <script src="/static/batch.js?v=7"></script>
+</body>
+</html>

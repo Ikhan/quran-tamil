@@ -1,0 +1,109 @@
+/* Additions for this app; the shared look comes from styles.css. */
+.wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px; }
+.card { background: var(--surface, #fff); border: 1px solid var(--border, #e2e2e2);
+        border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.card textarea { width: 100%; font-size: 1.35rem; line-height: 2.1; padding: 12px;
+        border-radius: 8px; border: 1px solid var(--border, #ddd); background: transparent;
+        color: inherit; }
+.row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.status { font-size: .9rem; opacity: .8; }
+.status.error { color: #c0392b; opacity: 1; }
+.status.warn { color: #b8860b; opacity: 1; }
+.result-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+.badge { font-size: .78rem; padding: 2px 8px; border-radius: 999px;
+        border: 1px solid var(--border, #ddd); opacity: .8; }
+.viewnav { display: flex; gap: 4px; padding: 0 20px; border-bottom: 1px solid var(--border, #e2e2e2); }
+.viewtab { background: none; border: 0; border-bottom: 2px solid transparent; color: inherit;
+        font: inherit; padding: 10px 14px; cursor: pointer; opacity: .65; }
+.viewtab:hover { opacity: .9; }
+.viewtab.is-active { opacity: 1; border-bottom-color: var(--accent, #2f6f4f); font-weight: 600; }
+.rangebox { font-size: 1.05rem; padding: 9px 12px; border-radius: 8px;
+        border: 1px solid var(--border, #ddd); background: transparent; color: inherit; width: 160px; }
+/* One row per verse: number, how small the type goes, how long it runs, state. */
+.plan { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.plan th { text-align: left; font-weight: 600; opacity: .6; font-size: .78rem;
+        padding: 4px 10px 6px 0; }
+.plan td { padding: 5px 10px 5px 0; border-top: 1px solid var(--border, #eee); }
+.plan .num { font-variant-numeric: tabular-nums; opacity: .75; }
+.plan tr.warn td { color: #9a6b00; }
+.plan tr.done td { opacity: .5; }
+.plan tr.gone td { color: #c0392b; }
+.voicecell { display: flex; align-items: center; gap: 6px; }
+.voicecell .play { padding: 2px 8px; font-size: .8rem; line-height: 1.6; }
+.caplist { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.capitem { display: flex; align-items: center; gap: 10px; padding: 7px 0;
+        border-top: 1px solid var(--border, #eee); }
+.capitem .ref { font-variant-numeric: tabular-nums; opacity: .75; min-width: 62px; font-size: .9rem; }
+.capitem .peek { flex: 1; font-size: .85rem; opacity: .6; overflow: hidden;
+        white-space: nowrap; text-overflow: ellipsis; }
+.capitem .btn { padding: 3px 12px; font-size: .82rem; }
+.capitem.copied .btn { background: #eaf5ee; border-color: var(--accent, #2f6f4f);
+        color: var(--accent, #2f6f4f); }
+.batch-options { display: flex; gap: 18px; margin-top: 14px; font-size: .92rem; }
+.batch-options .opt { display: flex; align-items: center; gap: 7px; cursor: pointer; }
+.batch-options input { width: 15px; height: 15px; accent-color: var(--accent, #2f6f4f); }
+.batch-images { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.plan select { font: inherit; font-size: .85rem; padding: 2px 4px; border-radius: 6px;
+        border: 1px solid var(--border, #ddd); background: transparent; color: inherit; max-width: 190px; }
+.batch-progress { margin-top: 12px; font-size: .92rem; }
+.batch-bar { height: 6px; border-radius: 999px; background: var(--border, #eee); overflow: hidden; margin-top: 8px; }
+.batch-bar span { display: block; height: 100%; background: var(--accent, #2f6f4f); transition: width .3s; }
+
+/* Destructive, so it reads as such before it is clicked - and again, louder,
+   once it is armed and the next click will actually remove the file. */
+.btn.danger { color: #c0392b; }
+.btn.danger.armed { background: #fdecea; color: #c0392b; border-color: #c0392b; }
+.runtime { margin-left: auto; font-size: .82rem; opacity: .75; white-space: nowrap; }
+/* Over 90s a reel is not worth posting, so the figure that says so is the one
+   worth colouring - the same amber the low-confidence flag uses. */
+.runtime.over { color: #9a6b00; opacity: 1; }
+.verse { padding: 14px 0; border-bottom: 1px solid var(--border, #eee); }
+.verse:last-child { border-bottom: 0; }
+.vnum { font-size: .8rem; opacity: .6; display: flex; gap: 10px; }
+.arabic { font-size: 1.6rem; line-height: 2.2; margin: 6px 0; }
+.tamil { font-size: 1.02rem; line-height: 1.75; opacity: .92; }
+.flags { margin-top: 6px; }
+.flag { font-size: .75rem; padding: 2px 8px; border-radius: 999px; }
+.flag.missing { background: #fdecea; color: #c0392b; }
+.flag.doubt { background: #fff6e0; color: #9a6b00; }
+.coverage { font-size: .82rem; opacity: .75; margin-right: 12px; }
+.coverage.warn { color: #b8860b; opacity: 1; }
+.topbar { display: flex; justify-content: space-between; align-items: center;
+        padding: 14px 20px; border-bottom: 1px solid var(--border, #e2e2e2); }
+.topbar-actions { display: flex; align-items: center; gap: 14px; }
+#player { display: flex; gap: 12px; align-items: center; margin-top: 14px; }
+#player audio { flex: 1; }
+
+/* The recitation card. The reciter rows themselves are styled by styles.css,
+   shared with quran-reels so the two dashboards pick a voice the same way. */
+.hint { font-size: .875rem; opacity: .75; margin: 6px 0 0; }
+.modes { display: flex; gap: 18px; margin-top: 12px; flex-wrap: wrap; }
+.mode { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: .95rem; }
+.mode input { width: 16px; height: 16px; accent-color: var(--accent, #2f6f4f); }
+/* Those rules were written for block children; here the row is a <label>, so
+   its parts are spans and need to be told to stack. */
+.reciter-body, .reciter-name, .reciter-character { display: block; }
+
+/* Making a reel. Rendering takes minutes, so the row has to show that it is
+   working rather than look like a button that did nothing. */
+.reel-row { display: flex; align-items: center; gap: 14px; margin-top: 14px;
+        flex-wrap: wrap; }
+.reel-row .status.working { color: var(--accent, #2f6f4f); opacity: 1; }
+#reelPlayer { display: flex; gap: 12px; align-items: flex-start; margin-top: 14px; }
+#reelPlayer video { width: 260px; border-radius: 10px; background: #000; }
+
+/* The cover card. */
+.cover-fields { display: flex; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+.field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 200px; }
+.field-narrow { flex: 0 0 120px; min-width: 120px; }
+.field span { font-size: .8rem; opacity: .7; }
+.field input { padding: 10px 12px; border-radius: 8px; font-size: 1rem;
+        border: 1px solid var(--border, #ddd); background: transparent; color: inherit; }
+.field input[readonly] { opacity: .65; }
+#coverResult { display: flex; gap: 14px; align-items: flex-start; margin-top: 14px; }
+#coverPreview { width: 220px; border-radius: 10px; border: 1px solid var(--border, #e2e2e2); }
+
+/* The caption card. The paste box at the top of the page is sized for Arabic;
+   a caption is read at prose size. */
+#captionText { font-size: .98rem; line-height: 1.65; margin-top: 14px;
+        font-family: inherit; white-space: pre-wrap; }

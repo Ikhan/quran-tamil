@@ -1,0 +1,41 @@
+{
+  "name": "quran-tamil",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Paste a Qur'an verse, get its Tamil translation audio",
+  "scripts": {
+    "server": "tsx watch server/server.ts",
+    "start": "tsx server/server.ts",
+    "typecheck": "tsc --noEmit",
+    "align": "python3 scripts/align_tamil.py",
+    "photos": "python3 scripts/fetch_cover_photos.py",
+    "index": "./scripts/index-surah.sh",
+    "check": "python3 scripts/check_index.py",
+    "merge": "tsx scripts/mergeTimings.ts",
+    "studio": "remotion studio src/index.ts",
+    "build:reel": "tsx scripts/buildReel.ts",
+    "reel": "tsx scripts/buildReel.ts --render"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "@remotion/cli": "4.0.344",
+    "@remotion/renderer": "4.0.344",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "remotion": "4.0.344"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/express": "^5.0.6",
+    "@types/express-session": "^1.19.0",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.20.5",
+    "typescript": "~5.8.3",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7"
+  }
+}

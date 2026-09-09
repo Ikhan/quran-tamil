@@ -1,0 +1,765 @@
+/* Quran Reels dashboard */
+
+/*
+ * Every colour is a variable so the dark theme is an override list rather than
+ * a second stylesheet, and every font-size is in rem so one root value scales
+ * the whole page. `prefs.js` sets `data-theme` and `--font-scale` on <html>
+ * before the first paint.
+ *
+ * Light is the default: the values below are exactly what the dashboard looked
+ * like before the themes went in.
+ */
+:root {
+  --font-scale: 1;
+
+  --bg: #f5f7fa;
+  --surface: #fff;
+  --panel: #f8fafc;
+
+  --text: #333;
+  --text-strong: #111827;
+  --text-soft: #666;
+  --text-muted: #6b7280;
+  --text-dim: #7a8b87;
+  --label: #555;
+
+  --border: #d6dce5;
+  --border-soft: #e6eae9;
+  --input-border: #e1e5e9;
+  --divider: #eef1f5;
+
+  /* The green the reel itself is built around. */
+  --accent: #146356;
+  --accent-hover: #0e493f;
+  --accent-soft: #f2f8f6;
+  --accent-tint: #eef4f2;
+  --on-accent: #fff;
+
+  --secondary: #6c757d;
+  --secondary-hover: #545b62;
+  --danger: #b3261e;
+  --danger-hover: #8c1d18;
+
+  --success-bg: #e5f4ee;
+  --success-text: #146b4a;
+  --error-bg: #fdecea;
+  --error-text: #a8322a;
+  --warn-text: #92400e;
+
+  --chip-bg: #e5e7eb;
+  --chip-text: #48505c;
+  --partial-bg: #fdf0d5;
+  --partial-text: #8a5a00;
+
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lifted: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/*
+ * Dark. Not an inversion: the surfaces stay slightly green so the accent still
+ * belongs to them, and the accent itself is lifted — #146356 on a dark surface
+ * is too close to the background to read as a control.
+ */
+:root[data-theme="dark"] {
+  --bg: #0e1311;
+  --surface: #161c1a;
+  --panel: #1b2321;
+
+  --text: #e2e8e5;
+  --text-strong: #f4f7f6;
+  --text-soft: #a9b4b0;
+  --text-muted: #93a09b;
+  --text-dim: #8b9995;
+  --label: #c2cbc8;
+
+  --border: #2c3835;
+  --border-soft: #263230;
+  --input-border: #2c3835;
+  --divider: #232e2b;
+
+  --accent: #2f9c86;
+  --accent-hover: #3cb69d;
+  --accent-soft: #17332c;
+  --accent-tint: #142823;
+  --on-accent: #06120f;
+
+  --secondary: #3a4340;
+  --secondary-hover: #4a5450;
+  --danger: #e0605a;
+  --danger-hover: #ef7871;
+
+  --success-bg: #10312a;
+  --success-text: #7fd9b8;
+  --error-bg: #3a1d1b;
+  --error-text: #f2a29c;
+  --warn-text: #e0a45c;
+
+  --chip-bg: #2a3532;
+  --chip-text: #c2cbc8;
+  --partial-bg: #3a2e14;
+  --partial-text: #e8bf72;
+
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lifted: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* The one place text size is set; everything else is rem off this. */
+html {
+  font-size: calc(16px * var(--font-scale));
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75em 1.375em;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  min-width: 7.5em;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--label);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--input-border);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: var(--text);
+  background-color: var(--surface);
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 220px;
+  font-family: "Monaco", "Menlo", "Consolas", monospace;
+  line-height: 1.5;
+}
+
+.form-group textarea::placeholder,
+.form-group input::placeholder {
+  color: var(--text-dim);
+}
+
+.button-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Login */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.login-card {
+  background: var(--surface);
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-lifted);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card h1 {
+  text-align: center;
+  margin-bottom: 6px;
+  font-size: 1.625rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-soft);
+  margin-bottom: 28px;
+}
+
+/* Layout */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.header {
+  background: var(--surface);
+  padding: 20px 24px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  font-size: 1.375rem;
+}
+
+.header .user-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text-soft);
+  font-weight: 600;
+}
+
+/*
+ * Theme and text-size controls. Square and quiet: they sit beside the username
+ * and must not compete with Logout, let alone with Generate.
+ */
+.prefs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn {
+  min-width: 0;
+  width: 2.25em;
+  height: 2.25em;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--text-soft);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: inherit;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.icon-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  background-color: var(--accent-soft);
+  color: var(--accent);
+}
+
+.icon-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.card {
+  background: var(--surface);
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24px;
+}
+
+.card h2 {
+  font-size: 1.1875rem;
+  margin-bottom: 8px;
+}
+
+.card > p {
+  color: var(--text-soft);
+  margin-bottom: 20px;
+}
+
+.hint {
+  background: var(--accent-tint);
+  border-left: 4px solid var(--accent);
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.hint code {
+  background: var(--chip-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Monaco", "Menlo", "Consolas", monospace;
+}
+
+/* Results and messages */
+.result {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.result.success {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.result.error {
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+.error {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--error-bg);
+  color: var(--error-text);
+  font-weight: 600;
+}
+
+/* Progress */
+.progress {
+  margin-top: 20px;
+}
+
+.progress-bar {
+  height: 12px;
+  background: var(--border-soft);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  margin-top: 10px;
+  color: var(--label);
+  font-weight: 600;
+}
+
+/* Page preview */
+.pages {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.page-preview {
+  border: 2px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.page-preview .meta {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.page-preview .text {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* What the voice will actually say — honorifics and numbers expanded. */
+.page-preview .spoken {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-soft);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Reel list */
+.reel-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reel-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 2px solid var(--border-soft);
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.reel-list .reel-meta {
+  color: var(--text-dim);
+  font-size: 0.8125rem;
+}
+
+.reel-list a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.reel-list a:hover {
+  text-decoration: underline;
+}
+
+.empty {
+  color: var(--text-dim);
+}
+
+@media (max-width: 600px) {
+  .btn {
+    width: 100%;
+  }
+
+  /* …except the header controls, which would each take a whole row. */
+  .icon-btn {
+    width: 2.25em;
+  }
+}
+
+/* Review queue */
+.btn-danger {
+  background-color: var(--danger);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: var(--danger-hover);
+}
+
+.count {
+  display: inline-block;
+  min-width: 22px;
+  padding: 0 7px;
+  margin-left: 6px;
+  border-radius: 11px;
+  background-color: rgba(0, 0, 0, 0.25);
+  font-size: 0.8125rem;
+  line-height: 22px;
+}
+
+.review-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.status-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab {
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--surface);
+  color: var(--chip-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab.is-active {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.bulk-bar {
+  display: none;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background-color: var(--accent-tint);
+}
+
+.bulk-bar .button-row {
+  margin: 0;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.review-item.is-selected {
+  outline: 2px solid var(--accent);
+}
+
+.review-item-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.select-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 1.0625rem;
+  cursor: pointer;
+}
+
+.select-box input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.review-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.review-item-meta .warn {
+  color: var(--warn-text);
+  font-weight: 600;
+}
+
+.pill {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pill-pending {
+  background-color: var(--partial-bg);
+  color: var(--partial-text);
+}
+
+.pill-approved {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+}
+
+.pill-rejected {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+}
+
+.pill-generated {
+  background-color: var(--accent-tint);
+  color: var(--accent);
+}
+
+.narrator-edit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin: 16px 0;
+  padding: 14px;
+  border-radius: 10px;
+  background-color: var(--panel);
+}
+
+.narrator-edit label {
+  flex: 1 1 320px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--chip-text);
+}
+
+.narrator-edit label.gender {
+  flex: 0 0 130px;
+}
+
+.narrator-edit small {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.narrator-edit input,
+.narrator-edit select {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  color: var(--text);
+  background-color: var(--surface);
+}
+
+.narrator-edit .btn {
+  min-width: 90px;
+  padding: 10px 18px;
+}
+
+.review-item details summary {
+  padding: 8px 0;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reel-link {
+  margin-top: 12px;
+  font-size: 0.875rem;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.review-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--divider);
+}
+
+.review-item-actions .decided {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+/* Quran Reels dashboard */
+.verse-preview { margin-top: 18px; }
+
+.resolved {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline;
+  padding: 14px 16px; margin-bottom: 14px;
+  background-color: var(--accent-tint); border-radius: 10px; font-size: 1rem;
+}
+.resolved .muted { color: var(--text-muted); font-size: 0.8125rem; }
+
+.verse {
+  padding: 16px 18px; margin-bottom: 10px;
+  background-color: var(--panel); border-radius: 10px; border: 1px solid var(--divider);
+}
+.verse-key { color: var(--text-muted); font-size: 0.75rem; margin-bottom: 8px; }
+.verse .arabic { font-size: 1.875rem; line-height: 2; color: var(--text-strong); }
+.verse .translation { margin-top: 10px; color: var(--chip-text); font-size: 0.875rem; }
+
+.reciter-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.reciter {
+  display: flex; gap: 14px; align-items: center;
+  padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+}
+.reciter.is-selected { border-color: var(--accent); background-color: var(--accent-soft); }
+.reciter input { width: 18px; height: 18px; accent-color: var(--accent); }
+.reciter-body { flex: 1; }
+.reciter-name { font-weight: 600; font-size: 0.9375rem; }
+.reciter-name .style {
+  margin-left: 8px; padding: 2px 8px; border-radius: 999px;
+  background-color: var(--chip-bg); color: var(--chip-text); font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+/* Amber, not red: a partial reciter is a caveat to read, not a broken option. */
+.reciter-name .partial {
+  margin-left: 6px; padding: 2px 8px; border-radius: 999px;
+  background-color: var(--partial-bg); color: var(--partial-text); font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em; cursor: help;
+}
+.reciter-character { color: var(--text-muted); font-size: 0.8125rem; margin-top: 3px; }
+.reciter .play { min-width: 7em; padding: 0.5em 0.875em; font-size: 0.8125rem; }
+
+.bg-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.bg {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+}
+.bg.is-selected { border-color: var(--accent); background-color: var(--accent-soft); }
+.bg input { width: 18px; height: 18px; accent-color: var(--accent); }
+.bg-name { font-weight: 600; font-size: 0.9375rem; }
+.bg .muted { color: var(--text-muted); font-size: 0.8125rem; }
+.bg .warn { color: var(--warn-text); font-size: 0.8125rem; font-weight: 600; }
+.bg .remove {
+  margin-left: auto; border: none; background: none;
+  color: var(--danger); font-size: 0.8125rem; font-weight: 600; cursor: pointer;
+}

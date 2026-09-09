@@ -1,0 +1,27 @@
+node_modules
+.env
+*.log
+logs/
+.DS_Store
+
+# The audio corpus: ~25h of Tamil surah mp3s and the superseded sets.
+# Too large for git, and re-obtainable — see "What is not in git" in README.md.
+data/*.mp3
+backup-truncated-originals/
+backup-32kbps-set/
+
+# Derived from the audio, rebuildable
+data/timings-parts
+data/timings-parts-old32k
+data/recitations
+
+# Staged for a render, and the finished posts
+public/audio
+public/covers
+output
+cover-photos/
+cover-image/
+
+# Python
+__pycache__/
+*.pyc
