@@ -1,289 +1,213 @@
 {
-  "createdAt": "2026-09-09T04:15:26.047Z",
+  "createdAt": "2026-11-03T14:14:53.896Z",
   "surah": 2,
   "surahName": "Al-Baqara",
   "surahNameArabic": "سُورَةُ البَقَرَةِ",
-  "reference": "Al-Baqara 2:25",
-  "reciter": "Saood_ash-Shuraym_128kbps",
-  "durationInFrames": 1975,
+  "reference": "Al-Baqara 2:80",
+  "reciter": "Ahmed_ibn_Ali_al-Ajamy_128kbps_ketaballah.net",
+  "durationInFrames": 1408,
   "verses": [
     {
-      "ayah": 25,
-      "arabic": "وَبَشِّرِ ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّٰلِحَٰتِ أَنَّ لَهُمْ جَنَّٰتٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَٰرُ كُلَّمَا رُزِقُوا۟ مِنْهَا مِن ثَمَرَةٍ رِّزْقًا قَالُوا۟ هَٰذَا ٱلَّذِى رُزِقْنَا مِن قَبْلُ وَأُتُوا۟ بِهِۦ مُتَشَٰبِهًا وَلَهُمْ فِيهَآ أَزْوَٰجٌ مُّطَهَّرَةٌ وَهُمْ فِيهَا خَٰلِدُونَ",
+      "ayah": 80,
+      "arabic": "وَقَالُوا۟ لَن تَمَسَّنَا ٱلنَّارُ إِلَّآ أَيَّامًا مَّعْدُودَةً قُلْ أَتَّخَذْتُمْ عِندَ ٱللَّهِ عَهْدًا فَلَن يُخْلِفَ ٱللَّهُ عَهْدَهُۥٓ أَمْ تَقُولُونَ عَلَى ٱللَّهِ مَا لَا تَعْلَمُونَ",
       "words": [
         {
-          "text": "وَبَشِّرِ",
+          "text": "وَقَالُوا۟",
           "fromFrame": 3,
-          "toFrame": 24,
+          "toFrame": 45,
           "grouped": false
         },
         {
-          "text": "ٱلَّذِينَ",
-          "fromFrame": 24,
-          "toFrame": 46,
+          "text": "لَن",
+          "fromFrame": 45,
+          "toFrame": 60,
           "grouped": false
         },
         {
-          "text": "ءَامَنُوا۟",
-          "fromFrame": 46,
-          "toFrame": 70,
+          "text": "تَمَسَّنَا",
+          "fromFrame": 60,
+          "toFrame": 91,
           "grouped": false
         },
         {
-          "text": "وَعَمِلُوا۟",
-          "fromFrame": 70,
-          "toFrame": 88,
+          "text": "ٱلنَّارُ",
+          "fromFrame": 91,
+          "toFrame": 128,
           "grouped": false
         },
         {
-          "text": "ٱلصَّٰلِحَٰتِ",
-          "fromFrame": 89,
-          "toFrame": 122,
+          "text": "إِلَّآ",
+          "fromFrame": 128,
+          "toFrame": 165,
           "grouped": false
         },
         {
-          "text": "أَنَّ",
-          "fromFrame": 122,
-          "toFrame": 143,
+          "text": "أَيَّامًا",
+          "fromFrame": 165,
+          "toFrame": 195,
           "grouped": false
         },
         {
-          "text": "لَهُمْ",
-          "fromFrame": 144,
-          "toFrame": 158,
+          "text": "مَّعْدُودَةً",
+          "fromFrame": 196,
+          "toFrame": 242,
           "grouped": false
         },
         {
-          "text": "جَنَّٰتٍ",
-          "fromFrame": 158,
-          "toFrame": 201,
+          "text": "قُلْ",
+          "fromFrame": 242,
+          "toFrame": 252,
           "grouped": false
         },
         {
-          "text": "تَجْرِى",
-          "fromFrame": 201,
-          "toFrame": 220,
+          "text": "أَتَّخَذْتُمْ",
+          "fromFrame": 253,
+          "toFrame": 293,
           "grouped": false
         },
         {
-          "text": "مِن",
-          "fromFrame": 221,
-          "toFrame": 235,
+          "text": "عِندَ",
+          "fromFrame": 293,
+          "toFrame": 327,
           "grouped": false
         },
         {
-          "text": "تَحْتِهَا",
-          "fromFrame": 236,
-          "toFrame": 254,
+          "text": "ٱللَّهِ",
+          "fromFrame": 327,
+          "toFrame": 350,
           "grouped": false
         },
         {
-          "text": "ٱلْأَنْهَٰرُ",
-          "fromFrame": 255,
-          "toFrame": 307,
+          "text": "عَهْدًا",
+          "fromFrame": 350,
+          "toFrame": 384,
           "grouped": false
         },
         {
-          "text": "كُلَّمَا",
-          "fromFrame": 308,
-          "toFrame": 329,
+          "text": "فَلَن",
+          "fromFrame": 384,
+          "toFrame": 407,
           "grouped": false
         },
         {
-          "text": "رُزِقُوا۟",
-          "fromFrame": 329,
-          "toFrame": 351,
+          "text": "يُخْلِفَ",
+          "fromFrame": 407,
+          "toFrame": 427,
           "grouped": false
         },
         {
-          "text": "مِنْهَا",
-          "fromFrame": 352,
-          "toFrame": 370,
+          "text": "ٱللَّهُ",
+          "fromFrame": 427,
+          "toFrame": 450,
           "grouped": false
         },
         {
-          "text": "مِن",
-          "fromFrame": 370,
-          "toFrame": 388,
+          "text": "عَهْدَهُۥٓ",
+          "fromFrame": 450,
+          "toFrame": 483,
           "grouped": false
         },
         {
-          "text": "ثَمَرَةٍ",
-          "fromFrame": 388,
-          "toFrame": 410,
+          "text": "أَمْ",
+          "fromFrame": 483,
+          "toFrame": 493,
           "grouped": false
         },
         {
-          "text": "رِّزْقًا",
-          "fromFrame": 410,
-          "toFrame": 442,
+          "text": "تَقُولُونَ",
+          "fromFrame": 493,
+          "toFrame": 527,
           "grouped": false
         },
         {
-          "text": "قَالُوا۟",
-          "fromFrame": 442,
-          "toFrame": 462,
+          "text": "عَلَى",
+          "fromFrame": 528,
+          "toFrame": 537,
           "grouped": false
         },
         {
-          "text": "هَٰذَا",
-          "fromFrame": 463,
-          "toFrame": 478,
+          "text": "ٱللَّهِ",
+          "fromFrame": 537,
+          "toFrame": 562,
           "grouped": false
         },
         {
-          "text": "ٱلَّذِى",
-          "fromFrame": 478,
-          "toFrame": 495,
+          "text": "مَا",
+          "fromFrame": 562,
+          "toFrame": 574,
           "grouped": false
         },
         {
-          "text": "رُزِقْنَا",
-          "fromFrame": 495,
-          "toFrame": 520,
+          "text": "لَا",
+          "fromFrame": 574,
+          "toFrame": 584,
           "grouped": false
         },
         {
-          "text": "مِن",
-          "fromFrame": 521,
-          "toFrame": 538,
-          "grouped": false
-        },
-        {
-          "text": "قَبْلُ",
-          "fromFrame": 538,
-          "toFrame": 563,
-          "grouped": false
-        },
-        {
-          "text": "وَأُتُوا۟",
-          "fromFrame": 563,
-          "toFrame": 583,
-          "grouped": false
-        },
-        {
-          "text": "بِهِۦ",
-          "fromFrame": 583,
-          "toFrame": 598,
-          "grouped": false
-        },
-        {
-          "text": "مُتَشَٰبِهًا",
-          "fromFrame": 598,
-          "toFrame": 648,
-          "grouped": false
-        },
-        {
-          "text": "وَلَهُمْ",
-          "fromFrame": 648,
-          "toFrame": 668,
-          "grouped": false
-        },
-        {
-          "text": "فِيهَآ",
-          "fromFrame": 668,
-          "toFrame": 689,
-          "grouped": false
-        },
-        {
-          "text": "أَزْوَٰجٌ",
-          "fromFrame": 689,
-          "toFrame": 725,
-          "grouped": false
-        },
-        {
-          "text": "مُّطَهَّرَةٌ",
-          "fromFrame": 726,
-          "toFrame": 764,
-          "grouped": false
-        },
-        {
-          "text": "وَهُمْ",
-          "fromFrame": 764,
-          "toFrame": 779,
-          "grouped": false
-        },
-        {
-          "text": "فِيهَا",
-          "fromFrame": 779,
-          "toFrame": 797,
-          "grouped": false
-        },
-        {
-          "text": "خَٰلِدُونَ",
-          "fromFrame": 798,
-          "toFrame": 839,
+          "text": "تَعْلَمُونَ",
+          "fromFrame": 585,
+          "toFrame": 641,
           "grouped": false
         }
       ],
-      "arabicAudio": "audio/Saood_ash-Shuraym_128kbps_002025.mp3",
+      "arabicAudio": "audio/Ahmed_ibn_Ali_al-Ajamy_128kbps_ketaballah.net_002080.mp3",
       "arabicStart": 0,
-      "arabicFrames": 853,
-      "tamil": "(ஆனால்) நம்பிக்கை கொண்டு நற்கருமங்கள் செய்வோருக்கு நன்மாராயங்கள் கூறுவீராக! சதா ஓடிக்கொண்டிருக்கும் ஆறுகளைக் கொண்ட சுவனச் சோலைகள் அவர்களுக்காக உண்டு, அவர்களுக்கு உண்ண அங்கிருந்து ஏதாவது கனி கொடுக்கப்படும்போதெல்லாம் \"இதுவே முன்னரும் நமக்கு (உலகில்) கொடுக்கப்பட்டிருக்கிறது\" என்று கூறுவார்கள்; ஆனால் (தோற்றத்தில்) இது போன்றதுதான் (அவர்களுக்கு உலகத்திற்) கொடுக்கப்பட்டிருந்தன, இன்னும் அவர்களுக்கு அங்கு தூய துணைவியரும் உண்டு, மேலும் அவர்கள் அங்கே நிரந்தரமாக வாழ்வார்கள்.",
-      "tamilAudio": "audio/tamil_002025.mp3",
-      "tamilStart": 867,
-      "tamilFrames": 1108,
-      "confidence": 0.86,
+      "arabicFrames": 715,
+      "tamil": "\"ஒரு சில நாட்கள் தவிர எங்களை நரக நெருப்புத் தீண்டாது\" என்று அவர்கள் கூறுகிறார்கள். \"அல்லாஹ்விடமிருந்து அப்படி ஏதேனும் உறுதிமொழி பெற்றிருக்கிறீர்களா? அப்படியாயின் அல்லாஹ் தன் உறுதி மொழிக்கு மாற்றம் செய்யவே மாட்டான்; அல்லது நீங்கள் அறியாததை அல்லாஹ் சொன்னதாக இட்டுக் கட்டிக் கூறுகின்றீர்களா?\" என்று (நபியே! அந்த யூதர்களிடம்) நீர் கேளும்.",
+      "tamilAudio": "audio/tamil_002080.mp3",
+      "tamilStart": 729,
+      "tamilFrames": 679,
+      "confidence": 0.905,
       "lines": [
         {
-          "text": "(ஆனால்) நம்பிக்கை கொண்டு நற்கருமங்கள்",
+          "text": "\"ஒரு சில நாட்கள் தவிர எங்களை நரக",
           "fromFrame": 0,
-          "toFrame": 90
+          "toFrame": 66
         },
         {
-          "text": "செய்வோருக்கு நன்மாராயங்கள் கூறுவீராக! சதா",
-          "fromFrame": 90,
-          "toFrame": 190
+          "text": "நெருப்புத் தீண்டாது\" என்று அவர்கள்",
+          "fromFrame": 66,
+          "toFrame": 136
         },
         {
-          "text": "ஓடிக்கொண்டிருக்கும் ஆறுகளைக் கொண்ட சுவனச்",
-          "fromFrame": 190,
-          "toFrame": 292
+          "text": "கூறுகிறார்கள். \"அல்லாஹ்விடமிருந்து",
+          "fromFrame": 136,
+          "toFrame": 206
         },
         {
-          "text": "சோலைகள் அவர்களுக்காக உண்டு, அவர்களுக்கு உண்ண",
-          "fromFrame": 292,
-          "toFrame": 399
+          "text": "அப்படி ஏதேனும் உறுதிமொழி",
+          "fromFrame": 206,
+          "toFrame": 258
         },
         {
-          "text": "அங்கிருந்து ஏதாவது கனி",
-          "fromFrame": 399,
-          "toFrame": 451
+          "text": "பெற்றிருக்கிறீர்களா? அப்படியாயின்",
+          "fromFrame": 258,
+          "toFrame": 326
         },
         {
-          "text": "கொடுக்கப்படும்போதெல்லாம் \"இதுவே முன்னரும்",
-          "fromFrame": 451,
-          "toFrame": 553
+          "text": "அல்லாஹ் தன் உறுதி மொழிக்கு மாற்றம்",
+          "fromFrame": 326,
+          "toFrame": 398
         },
         {
-          "text": "நமக்கு (உலகில்) கொடுக்கப்பட்டிருக்கிறது\" என்று",
-          "fromFrame": 553,
-          "toFrame": 665
+          "text": "செய்யவே மாட்டான்; அல்லது நீங்கள்",
+          "fromFrame": 398,
+          "toFrame": 464
         },
         {
-          "text": "கூறுவார்கள்; ஆனால் (தோற்றத்தில்) இது",
-          "fromFrame": 665,
-          "toFrame": 753
+          "text": "அறியாததை அல்லாஹ் சொன்னதாக இட்டுக்",
+          "fromFrame": 464,
+          "toFrame": 534
         },
         {
-          "text": "போன்றதுதான் (அவர்களுக்கு உலகத்திற்)",
-          "fromFrame": 753,
-          "toFrame": 838
+          "text": "கட்டிக் கூறுகின்றீர்களா?\" என்று",
+          "fromFrame": 534,
+          "toFrame": 598
         },
         {
-          "text": "கொடுக்கப்பட்டிருந்தன, இன்னும் அவர்களுக்கு அங்கு",
-          "fromFrame": 838,
-          "toFrame": 952
-        },
-        {
-          "text": "தூய துணைவியரும் உண்டு, மேலும் அவர்கள் அங்கே",
-          "fromFrame": 952,
-          "toFrame": 1054
-        },
-        {
-          "text": "நிரந்தரமாக வாழ்வார்கள்.",
-          "fromFrame": 1054,
-          "toFrame": 1109
+          "text": "(நபியே! அந்த யூதர்களிடம்) நீர் கேளும்.",
+          "fromFrame": 598,
+          "toFrame": 677
         }
       ]
     }

@@ -134,6 +134,15 @@ export const RECITERS: readonly Reciter[] = [
     character:
       "Less widely known, bright and quick. Useful when the familiar voices feel overused.",
   },
+  {
+    // Neither quran-align nor the QUL imports cover this voice, so there is no
+    // timings file: interleaved audio works, a reel refuses until one is added.
+    id: "Ahmed_ibn_Ali_al-Ajamy_128kbps_ketaballah.net",
+    name: "Ahmed Al-Ajamy",
+    style: "Murattal",
+    character:
+      "Melodic and emotive, moderately paced. Audio only for now — no word timings, so no reels yet.",
+  },
 ];
 
 export const DEFAULT_RECITER = "Alafasy_128kbps";

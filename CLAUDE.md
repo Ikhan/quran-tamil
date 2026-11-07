@@ -264,3 +264,8 @@ Do not mix it in — clips cut from it contain commentary.
 - `RATE` in the aligner (seconds per Tamil character) plans windows and flags
   suspects. It never sets a boundary. It runs slightly hot, so it over-flags
   rather than under-flags.
+- `data/tamil-overrides.json` reorders a verse's Tamil clauses where the
+  recording reads them in a different order from Tanzil (2:56 is spoken in the
+  Arabic's order). Reel, caption and dashboard all read it through
+  `loadSources`; the aligner keeps reading `ta.tamil.txt`. An override that
+  changes any word rather than moving it is refused at load.

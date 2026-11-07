@@ -73,6 +73,65 @@ const parsePipeFile = (
   return verses;
 };
 
+/** Punctuation the translator placed between clauses, which moves with them. */
+const CLAUSE_PUNCTUATION = /[,.;:!?'"“”‘’()]/g;
+
+const wordsOf = (text: string): string =>
+  text
+    .replace(CLAUSE_PUNCTUATION, " ")
+    .split(/\s+/)
+    .filter(Boolean)
+    .sort()
+    .join(" ");
+
+/**
+ * The recording sometimes reads a verse's clauses in a different order from
+ * the Tanzil text — 2:56 is spoken in the Arabic's order, "We raised you after
+ * your death, that you might be grateful", while the text puts the purpose
+ * clause first. Shown as written, the card reads against the audio and every
+ * line lights while the other is being spoken.
+ *
+ * `data/tamil-overrides.json` holds the reordered text. `ta.tamil.txt` itself
+ * stays as it is: the aligner reads it. An override may only move words, never
+ * change them, so one that does not carry exactly the source's words is
+ * refused rather than shown.
+ */
+const applyOverrides = async (
+  tamil: Map<VerseKey, string>
+): Promise<Map<VerseKey, string>> => {
+  let raw: string;
+  try {
+    raw = await fs.readFile(
+      path.join(config.paths.data, "tamil-overrides.json"),
+      "utf-8"
+    );
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+      return tamil;
+    }
+    throw err;
+  }
+
+  const overrides = JSON.parse(raw) as Record<string, string>;
+  const merged = new Map(tamil);
+
+  for (const [key, text] of Object.entries(overrides)) {
+    const source = tamil.get(key as VerseKey);
+    if (source === undefined) {
+      throw new Error(`tamil-overrides.json: no verse ${key}`);
+    }
+    if (wordsOf(source) !== wordsOf(text)) {
+      throw new Error(
+        `tamil-overrides.json: ${key} changes the translation's words; ` +
+          `an override may only reorder them`
+      );
+    }
+    merged.set(key as VerseKey, text);
+  }
+
+  return merged;
+};
+
 export interface QuranSources {
   arabic: Map<VerseKey, string>;
   tamil: Map<VerseKey, string>;
@@ -92,7 +151,7 @@ export const loadSources = async (): Promise<QuranSources> => {
 
   cached = {
     arabic: parsePipeFile(arabicRaw, true),
-    tamil: parsePipeFile(tamilRaw),
+    tamil: await applyOverrides(parsePipeFile(tamilRaw)),
   };
 
   return cached;

@@ -15,6 +15,7 @@ data/timings-parts
 data/timings-parts-old32k
 data/recitations
 
+data/arabic-timings-parts
 # Staged for a render, and the finished posts
 public/audio
 public/covers
