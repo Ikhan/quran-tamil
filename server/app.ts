@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import session from "express-session";
 import compression from "compression";
 import path from "path";
@@ -49,6 +49,14 @@ app.use("/auth", authRoutes);
 app.use("/api/clips", clipRoutes);
 app.use("/api/reels", reelRoutes);
 app.use("/api/cover", coverRoutes);
+
+/**
+ * The Instagram queue. Its service is built at startup (it reads the queue
+ * file and the token), after this module has run, so the route is mounted now
+ * — ahead of the error handler below — and filled in by server.ts.
+ */
+export const scheduleMount = Router();
+app.use("/api/schedule", scheduleMount);
 
 const view = (name: string) => path.join(__dirname, "views", `${name}.html`);
 

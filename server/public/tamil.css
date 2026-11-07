@@ -107,3 +107,43 @@
    a caption is read at prose size. */
 #captionText { font-size: .98rem; line-height: 1.65; margin-top: 14px;
         font-family: inherit; white-space: pre-wrap; }
+
+/* Posting to Instagram: the Schedule tab and the bars that feed it. */
+.postbar { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border, #eee); }
+.wrap-row { flex-wrap: wrap; }
+.whenbox { font: inherit; font-size: .92rem; padding: 7px 10px; border-radius: 8px;
+        border: 1px solid var(--border, #ddd); background: transparent; color: inherit; }
+.tabcount { font-size: .72rem; font-weight: 600; padding: 1px 7px; margin-left: 4px; border-radius: 999px;
+        background: var(--accent-tint, #eef4f2); color: var(--accent, #146356); }
+.tabcount.has-failed { background: var(--error-bg, #fdecea); color: var(--error-text, #a8322a); }
+.postlist { display: flex; flex-direction: column; margin-top: 8px; }
+.postrow { display: flex; gap: 14px; padding: 12px 0; border-top: 1px solid var(--border, #eee); }
+.postrow:first-child { border-top: 0; }
+.postthumb { width: 54px; height: 96px; flex: 0 0 54px; object-fit: cover; border-radius: 6px;
+        border: 1px solid var(--border, #ddd); background: var(--panel, #f8fafc); }
+.postthumb.empty { display: flex; align-items: center; justify-content: center; text-align: center;
+        font-size: .68rem; opacity: .55; }
+.postbody { flex: 1; min-width: 0; }
+.posthead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+.postref { font-weight: 600; font-variant-numeric: tabular-nums; }
+.postwhen { font-size: .88rem; opacity: .75; font-variant-numeric: tabular-nums; }
+.postpeek { font-size: .85rem; opacity: .6; margin-top: 4px; overflow: hidden;
+        white-space: nowrap; text-overflow: ellipsis; }
+.posterror { font-size: .85rem; margin-top: 4px; }
+.posterror.error { color: var(--error-text, #a8322a); }
+.posterror.warn { color: var(--warn-text, #92400e); }
+.postrow .row { margin-top: 8px; gap: 8px; }
+.postrow .btn { padding: 4px 12px; font-size: .84rem; }
+.postedit { margin-top: 8px; }
+.postedit[hidden] { display: none; }
+.card textarea.postcaption { font-size: .95rem; line-height: 1.6; }
+.chip { font-size: .74rem; padding: 1px 8px; border-radius: 999px;
+        background: var(--chip-bg, #e5e7eb); color: var(--chip-text, #48505c); }
+.chip-scheduled, .chip-ready { background: var(--accent-tint, #eef4f2); color: var(--accent, #146356); }
+.chip-publishing { background: var(--partial-bg, #fdf0d5); color: var(--partial-text, #8a5a00); }
+.chip-posted { background: var(--success-bg, #e5f4ee); color: var(--success-text, #146b4a); }
+.chip-failed, .chip-missing { background: var(--error-bg, #fdecea); color: var(--error-text, #a8322a); }
+.postrow.is-posted { opacity: .8; }
+@media (max-width: 560px) {
+  .postthumb { width: 40px; height: 71px; flex-basis: 40px; }
+}

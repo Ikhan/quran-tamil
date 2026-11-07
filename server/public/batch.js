@@ -301,6 +301,9 @@ const pollBatch = async () => {
       );
       // The plan is stale now — verses just rendered should read as rendered.
       $("batchCheck").click();
+      if (p.status === "completed" && p.batch?.files?.length) {
+        window.dispatchEvent(new CustomEvent("batch:done", { detail: { files: p.batch.files } }));
+      }
     }
   } catch {
     /* a dropped poll is not worth reporting; the next one will do */
@@ -460,6 +463,9 @@ document.querySelectorAll(".viewtab").forEach((tab) => {
       .forEach((t) => t.classList.toggle("is-active", t === tab));
     $("viewSingle").hidden = view !== "single";
     $("viewBatch").hidden = view !== "batch";
+    $("viewSchedule").hidden = view !== "schedule";
+    // schedule.js keeps to itself; it learns it is on screen from this.
+    if (view === "schedule") window.dispatchEvent(new CustomEvent("view:schedule"));
     if (view !== "batch" && rowPlaying) stopRow();
     write("quranTamil.view", view);
 
@@ -481,6 +487,9 @@ document.querySelectorAll(".viewtab").forEach((tab) => {
   });
 });
 
-if (read("quranTamil.view") === "batch") {
-  document.querySelector('.viewtab[data-view="batch"]').click();
+{
+  const saved = read("quranTamil.view");
+  if (saved === "batch" || saved === "schedule") {
+    document.querySelector(`.viewtab[data-view="${saved}"]`).click();
+  }
 }

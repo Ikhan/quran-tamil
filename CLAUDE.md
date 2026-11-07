@@ -214,6 +214,75 @@ Twenty-nine tags, fixed, with one slot spare. The copy button reports the count
 off the text as it stands, so a tag pasted in by hand is counted too and an edit
 that goes over thirty is caught before the paste rather than after.
 
+## Posting to Instagram
+
+The Schedule tab posts reels straight to Instagram, ported from
+`../islamic-names` (`server/instagram/`, `server/posts/`). Three ways in: the
+bar under a finished reel (uses the caption box), **Schedule these** after a
+batch, and the tab's list of rendered reels that are not queued yet.
+
+The queue is `output/schedule.json`, worked through once a minute by the
+server. Nothing is posted while the server is stopped, and nothing is lost
+either; a post missed by more than six hours moves to the next free slot
+instead of firing late. Settings are a **list** of daily times (`09:00, 19:00`)
+in a named time zone, one post per time per day. A post scheduled by hand at an
+odd hour still uses up one of its day's places.
+
+A post references its reel by path under `output/`, the same path the history
+listing hands out, so there is no second registry of reels. Its cover is found
+by name beside it (a dark reel uses the light reel's cover). A post without a
+caption takes the `caption-SSS-AAA.txt` a batch wrote beside the reel.
+
+The cover is a separate still, not a frame of the video, so it goes to
+Instagram as `cover_url`, and Instagram only takes that as a public link. It is
+served for the minute it takes to fetch through a Cloudflare quick tunnel to a
+localhost server that serves registered `.mp4`/`.png` files under random tokens
+and nothing else. The dashboard itself is never exposed. A cover that cannot be
+shared stops the attempt (and retries) rather than posting with a random frame.
+
+Failure handling matters more than anything else here, because a double post is
+worse than a late one:
+
+- A failure Instagram cannot have acted on is retried (three attempts, 15 min apart).
+- A failure where the publish call itself was ambiguous is marked **failed** and
+  never retried automatically. Check Instagram, then Retry from the tab.
+- A restart mid-publish marks that post failed for the same reason.
+- A corrupt `schedule.json` stops the server rather than starting empty: an
+  empty queue would forget what has already gone out.
+
+`npm test` covers the queue, slots, publisher, client, tunnel and routes.
+
+### Publishing from AWS (the default once set up)
+
+So posts go out with the Mac shut. `npm run aws:setup` creates, in Mumbai
+(`ap-south-1`): a private S3 bucket `quran-tamil-posts-<account>`, a DynamoDB
+table `quran-tamil-posts` (the queue and settings), the token as an SSM
+SecureString `/quran-tamil/instagram-token`, the Lambda
+`quran-tamil-publisher`, the schedule group `quran-tamil`, and two IAM roles
+scoped to exactly those. It writes `data/aws-posting.json`; while that file
+exists the dashboard uses AWS (`POSTING_BACKEND=local` forces the Mac queue).
+
+- **Schedule** copies the reel and cover to S3 and sets a one-time
+  EventBridge alarm for the post. The alarm runs the Lambda, which hands
+  Instagram one-hour signed links, then deletes the files once posted.
+  Files are not expired automatically: a post can be queued months ahead.
+- **Alarms are named for their time** (`post-<id>--<time>`). A fired alarm
+  deletes itself just after running; reusing a name for a retry could be
+  deleted with it. Moving a post removes its old alarms and sets a new one.
+- **Every publish starts with a conditional claim** in DynamoDB, so a duplicate
+  delivery, or an alarm for a post moved since, does nothing. "Post now" is
+  claimed by the dashboard with a token only that invocation may use. Edits
+  and cancels are conditional too, so they cannot undo a claim.
+- Same retry rules as the Mac: three attempts 15 minutes apart, each with its
+  own alarm; an ambiguous publish is failed, never retried. Lambda's own async
+  retries are switched off. A post left "publishing" over 20 minutes (Lambda
+  stops at 15) is shown failed, to be checked. Paused: a due post moves to the
+  next free slot instead of going out.
+- Code in `server/cloud/`; the Lambda is `server/cloud/lambda.ts` bundled with
+  esbuild. After changing it, or `server/instagram/`, run `npm run aws:deploy`.
+  After a new token in `.env`, `npm run aws:token`. `npm run aws:check` runs
+  the whole path on a dummy post without posting anything.
+
 ## Cover images
 
 The still that fronts a reel: the Arabic name of the sura, the English name, the
@@ -261,11 +330,11 @@ Do not mix it in — clips cut from it contain commentary.
   what pastes are matched against, and quran-reels resolves against the same file.
 - Clips are re-encoded, never stream-copied: a stream copy can only cut on a
   frame boundary and carries the original encoder delay, which is audible.
-- `RATE` in the aligner (seconds per Tamil character) plans windows and flags
-  suspects. It never sets a boundary. It runs slightly hot, so it over-flags
-  rather than under-flags.
 - `data/tamil-overrides.json` reorders a verse's Tamil clauses where the
   recording reads them in a different order from Tanzil (2:56 is spoken in the
   Arabic's order). Reel, caption and dashboard all read it through
   `loadSources`; the aligner keeps reading `ta.tamil.txt`. An override that
   changes any word rather than moving it is refused at load.
+- `RATE` in the aligner (seconds per Tamil character) plans windows and flags
+  suspects. It never sets a boundary. It runs slightly hot, so it over-flags
+  rather than under-flags.

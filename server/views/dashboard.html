@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quran Tamil</title>
     <link rel="stylesheet" href="/static/styles.css?v=1">
-    <link rel="stylesheet" href="/static/tamil.css?v=16">
+    <link rel="stylesheet" href="/static/tamil.css?v=17">
     <script src="/static/prefs.js?v=1"></script>
 </head>
 <body>
@@ -25,6 +25,7 @@
     <nav class="viewnav">
         <button type="button" class="viewtab is-active" data-view="single">One reel</button>
         <button type="button" class="viewtab" data-view="batch">A reel per verse</button>
+        <button type="button" class="viewtab" data-view="schedule">Schedule <span id="queueCount" class="tabcount" hidden></span></button>
     </nav>
 
     <main class="wrap" id="viewSingle">
@@ -113,6 +114,17 @@
                 <video id="reelVideo" controls preload="metadata" playsinline></video>
                 <a id="reelDownload" class="btn btn-ghost" download>Download mp4</a>
             </div>
+            <div id="reelPost" class="postbar" hidden>
+                <strong>Post it to Instagram</strong>
+                <p class="hint">Goes out with the caption below and the cover, if one was made. The next free slot follows the daily times on the Schedule tab.</p>
+                <div class="row wrap-row">
+                    <button id="postNextSlot" class="btn btn-primary">Schedule — next free slot</button>
+                    <input id="postAt" type="datetime-local" class="whenbox" aria-label="Post at (your time)">
+                    <button id="postAtTime" class="btn btn-ghost">Schedule at that time</button>
+                    <button id="postNow" class="btn btn-ghost">Post now</button>
+                </div>
+                <div class="row"><span id="postStatus" class="status"></span></div>
+            </div>
         </section>
 
         <section id="captionCard" class="card" style="display:none;">
@@ -165,6 +177,13 @@
                 <span id="batchRunStatus" class="status"></span>
             </div>
             <div id="batchProgress" class="batch-progress" hidden></div>
+            <div id="batchPost" class="postbar" hidden>
+                <div class="row wrap-row">
+                    <button id="batchSchedule" class="btn btn-primary">Schedule these</button>
+                    <span id="batchScheduleStatus" class="status"></span>
+                </div>
+                <p class="hint">One per free slot, in verse order, each with the caption written beside it.</p>
+            </div>
         </section>
 
         <section id="batchCaptionsCard" class="card" style="display:none;">
@@ -174,8 +193,60 @@
         </section>
     </main>
 
+    <main class="wrap" id="viewSchedule" hidden>
+        <section class="card">
+            <div class="result-head">
+                <strong>Instagram</strong>
+                <span id="igStatus" class="status"></span>
+            </div>
+            <p class="hint" id="schedWhere"></p>
+            <div class="cover-fields">
+                <label class="field">
+                    <span>Daily posting times</span>
+                    <input id="schedTimes" type="text" placeholder="19:00 or 09:00, 19:00" autocomplete="off">
+                </label>
+                <label class="field">
+                    <span>Time zone</span>
+                    <input id="schedZone" type="text" placeholder="Asia/Kolkata" autocomplete="off">
+                </label>
+            </div>
+            <div class="row wrap-row">
+                <label class="mode"><input type="checkbox" id="schedPaused"> Paused — nothing goes out</label>
+                <button id="schedSave" class="btn btn-primary">Save</button>
+                <span id="schedSaveStatus" class="status"></span>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="result-head">
+                <strong>Queue</strong>
+                <span id="queueSummary" class="runtime"></span>
+            </div>
+            <div id="queueList" class="postlist"></div>
+        </section>
+
+        <section class="card">
+            <div class="result-head">
+                <strong>Rendered, not scheduled</strong>
+                <span id="unqueuedSummary" class="runtime"></span>
+            </div>
+            <p class="hint">Every reel in <code>output/</code> that is not queued or posted. A reel made by a batch already has its caption; one without needs one written before it can go out.</p>
+            <div class="row wrap-row">
+                <button id="queueAllReady" class="btn btn-ghost">Schedule all with captions</button>
+                <span id="queueAllStatus" class="status"></span>
+            </div>
+            <div id="unqueuedList" class="postlist"></div>
+        </section>
+
+        <section class="card" id="postedCard" hidden>
+            <strong>Posted</strong>
+            <div id="postedList" class="postlist"></div>
+        </section>
+    </main>
+
     <script src="/static/caption.js?v=4"></script>
-    <script src="/static/tamil.js?v=21"></script>
-    <script src="/static/batch.js?v=7"></script>
+    <script src="/static/tamil.js?v=22"></script>
+    <script src="/static/batch.js?v=8"></script>
+    <script src="/static/schedule.js?v=2"></script>
 </body>
 </html>

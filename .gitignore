@@ -1,5 +1,7 @@
 node_modules
 .env
+# Instagram's refreshed access token (written 0600 by the server)
+data/instagram-token.json
 *.log
 logs/
 .DS_Store
@@ -13,9 +15,9 @@ backup-32kbps-set/
 # Derived from the audio, rebuildable
 data/timings-parts
 data/timings-parts-old32k
+data/arabic-timings-parts
 data/recitations
 
-data/arabic-timings-parts
 # Staged for a render, and the finished posts
 public/audio
 public/covers
@@ -26,3 +28,4 @@ cover-image/
 # Python
 __pycache__/
 *.pyc
+data/aws-posting.json

@@ -448,6 +448,8 @@ const showReel = (file) => {
   $("reelDownload").href = `/api/reels/file/${file}`;
   $("reelDownload").setAttribute("download", basename(file));
   $("reelPlayer").style.display = "flex";
+  // schedule.js offers to post it; it reads the caption box when asked.
+  window.dispatchEvent(new CustomEvent("reel:ready", { detail: { file } }));
 };
 
 const poll = async () => {
@@ -502,6 +504,7 @@ $("makeReel").addEventListener("click", async () => {
 
   setStatus($("reelStatus"), "Starting…", "working");
   $("reelPlayer").style.display = "none";
+  $("reelPost").hidden = true;
 
   try {
     const res = await fetch("/api/reels/render", {

@@ -15,27 +15,48 @@
     "merge": "tsx scripts/mergeTimings.ts",
     "studio": "remotion studio src/index.ts",
     "build:reel": "tsx scripts/buildReel.ts",
-    "reel": "tsx scripts/buildReel.ts --render"
+    "reel": "tsx scripts/buildReel.ts --render",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "aws:setup": "tsx scripts/awsSetup.ts all",
+    "aws:deploy": "tsx scripts/awsSetup.ts code",
+    "aws:token": "tsx scripts/awsSetup.ts token",
+    "aws:check": "tsx scripts/awsCheck.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1163.0",
+    "@aws-sdk/client-iam": "^3.1163.0",
+    "@aws-sdk/client-lambda": "^3.1163.0",
+    "@aws-sdk/client-s3": "^3.1163.0",
+    "@aws-sdk/client-scheduler": "^3.1163.0",
+    "@aws-sdk/client-ssm": "^3.1163.0",
+    "@aws-sdk/lib-dynamodb": "^3.1163.0",
+    "@aws-sdk/s3-request-presigner": "^3.1163.0",
+    "@remotion/cli": "4.0.344",
+    "@remotion/renderer": "4.0.344",
     "compression": "^1.8.1",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
-    "@remotion/cli": "4.0.344",
-    "@remotion/renderer": "4.0.344",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "remotion": "4.0.344"
+    "remotion": "4.0.344",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@aws-sdk/client-cloudwatch-logs": "^3.1163.0",
+    "@aws-sdk/client-sts": "^3.1163.0",
     "@types/compression": "^1.8.1",
     "@types/express": "^5.0.6",
     "@types/express-session": "^1.19.0",
     "@types/node": "^22.10.2",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@types/supertest": "^7.2.1",
+    "esbuild": "^0.28.2",
+    "supertest": "^7.3.1",
     "tsx": "^4.20.5",
     "typescript": "~5.8.3",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7"
+    "vitest": "^5.1.0"
   }
 }
